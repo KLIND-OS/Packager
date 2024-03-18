@@ -6,7 +6,8 @@ import getContentInstall from "../contents/install.mjs";
 import { promises } from "fs";
 const fs = promises;
 import path from "path";
-import process from "process";
+import process, { cwd } from "process";
+import fetch from "node-fetch";
 
 export default async function install() {
   Console.info("Projekt nebyl nalezen! Vytvářím nový.");
@@ -33,11 +34,15 @@ export default async function install() {
       encoding: "utf8",
     }),
     fs.writeFile(path.join(process.cwd(), "name.txt"), answers.appname, {
-      encoding: "utf8"
-    })
+      encoding: "utf8",
+    }),
   ]);
 
-  // Download logo to assets folder
+  const response = await fetch("https://klindos.jzitnik.dev/compiler/icon.png");
+  const buffer = await response.arrayBuffer();
+  const filePath = path.join(process.cwd(), "assets", "icon.png");
+
+  await fs.writeFile(filePath, buffer);
 
   Console.success(
     "Projekt vytvořen! Spusťte tento script znovu pro více info.",
