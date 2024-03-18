@@ -40,7 +40,7 @@ export default async function install() {
 
   const response = await fetch("https://klindos.jzitnik.dev/compiler/icon.png");
   const buffer = await response.arrayBuffer();
-  const filePath = path.join(process.cwd(), "assets", "icon.png");
+  const filePath = path.join(process.cwd(), "assets", "logo.png");
 
   await fs.writeFile(filePath, Buffer.from(buffer));
 
