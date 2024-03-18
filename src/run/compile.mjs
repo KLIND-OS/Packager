@@ -7,7 +7,7 @@ import path from "path";
 import process from "process";
 const fsPromises = fs.promises;
 
-export default async function compile(callback) {
+export default async function compile(callback = () => {}) {
   const { answer } = await inquirer.prompt([
     {
       type: "list",
@@ -45,20 +45,42 @@ export default async function compile(callback) {
     }
   } catch {}
 
-  // TODO: Add checking if all files are here
-
   const zip = new JSZip();
+
+  const namePath = path.join(process.cwd(), "name.txt");
+  const installPath = path.join(process.cwd(), "install.js");
+  const scriptPath = path.join(process.cwd(), "app.js");
+  const imagePath = path.join(process.cwd(), "assets", "logo.png");
+
   zip.file("version.txt", version);
-  zip.file("name.txt", fs.readFileSync(path.join(process.cwd(), "name.txt")));
-  zip.file(
-    "install.js",
-    fs.readFileSync(path.join(process.cwd(), "install.js")),
-  );
-  zip.file("script.js", fs.readFileSync(path.join(process.cwd(), "app.js")));
-  zip.file(
-    "image.png",
-    fs.readFileSync(path.join(process.cwd(), "assets", "logo.png")),
-  );
+
+  if (fs.existsSync(namePath)) {
+    zip.file("name.txt", fs.readFileSync(namePath));
+  } else {
+    Console.error("Vyžadovaný soubor nebyl nalezen: name.txt");
+    process.exit(1);
+  }
+
+  if (fs.existsSync(installPath)) {
+    zip.file("install.js", fs.readFileSync(installPath));
+  } else {
+    Console.error("Vyžadovaný soubor nebyl nalezen: install.js");
+    process.exit(1);
+  }
+
+  if (fs.existsSync(scriptPath)) {
+    zip.file("script.js", fs.readFileSync(scriptPath));
+  } else {
+    Console.error("Vyžadovaný soubor nebyl nalezen: app.js");
+    process.exit(1);
+  }
+
+  if (fs.existsSync(imagePath)) {
+    zip.file("image.png", fs.readFileSync(imagePath));
+  } else {
+    Console.error("Vyžadovaný soubor nebyl nalezen: logo.png");
+    process.exit(1);
+  }
 
   await fsPromises.mkdir(path.join(process.cwd(), "dist"));
 
