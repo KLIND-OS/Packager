@@ -42,7 +42,7 @@ export default async function install() {
   const buffer = await response.arrayBuffer();
   const filePath = path.join(process.cwd(), "assets", "icon.png");
 
-  await fs.writeFile(filePath, buffer);
+  await fs.writeFile(filePath, Buffer.from(buffer));
 
   Console.success(
     "Projekt vytvořen! Spusťte tento script znovu pro více info.",
