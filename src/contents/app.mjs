@@ -20,7 +20,7 @@ class ${appname.replaceAll(" ", "")}App {
     MAIN: "${defaultWindowName}",
   }
   contents = {
-    MAIN: \`<h1>Hello!</h1><button onclick="ClList[_${appname}Public.key].functions.printHello()">Hello</button>\`
+    MAIN: \`<h1>Hello!</h1><button onclick="ClList[_${appname.replaceAll(" ", "")}Public.key].functions.printHello()">Hello</button>\`
   }
 
   mainOpen() {
