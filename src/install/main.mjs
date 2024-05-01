@@ -38,6 +38,8 @@ export default async function install() {
     }),
   ]);
 
+  await fs.mkdir(path.join(process.cwd(), "assets", "custom"))
+
   const response = await fetch("https://klindos.jzitnik.dev/compiler/icon.png");
   const buffer = await response.arrayBuffer();
   const filePath = path.join(process.cwd(), "assets", "logo.png");

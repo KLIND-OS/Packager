@@ -51,6 +51,7 @@ export default async function compile(callback = () => {}) {
   const installPath = path.join(process.cwd(), "install.js");
   const scriptPath = path.join(process.cwd(), "app.js");
   const imagePath = path.join(process.cwd(), "assets", "logo.png");
+  const appdataPath = path.join(process.cwd(), "assets", "custom");
 
   zip.file("version.txt", version);
 
@@ -79,6 +80,24 @@ export default async function compile(callback = () => {}) {
     zip.file("image.png", fs.readFileSync(imagePath));
   } else {
     Console.error("Vyžadovaný soubor nebyl nalezen: logo.png");
+    process.exit(1);
+  }
+
+  function addFilesToZip(zip, folderPath, zipFolderPath = "appdata") {
+    const folder = zip.folder(zipFolderPath);
+    fs.readdirSync(folderPath).forEach((file) => {
+      const filePath = path.join(folderPath, file);
+      if (fs.statSync(filePath).isDirectory()) {
+        addFilesToZip(folder, filePath, file);
+      } else {
+        folder.file(file, fs.readFileSync(filePath));
+      }
+    });
+  }
+  if (fs.existsSync(appdataPath)) {
+    addFilesToZip(zip, appdataPath);
+  } else {
+    console.error("Vyžadovaná složka nebyla nalezena: appdata");
     process.exit(1);
   }
 

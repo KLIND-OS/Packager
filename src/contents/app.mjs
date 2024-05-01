@@ -5,11 +5,11 @@ export default function getApp({ appname, hidden, defaultWindowName }) {
 // If you want to use any NodeJS package that you downloaded in the installation use LowLevelApi.NodePackages.get("package") instead of require("package")
 // Also, if you want to use Linux applications that you installed during app installation, you need to use them from Bash. Use LowLevelApi.child_process.exec("command")
 
-class _${appname.replaceAll(" ", "")}Public {
+class _${appname.replaceAll(" ", "").replaceAll("-", "_")}Public {
   static key;
 }
 
-class ${appname.replaceAll(" ", "")}App {
+class ${appname.replaceAll(" ", "").replaceAll("-", "_")}App {
   app;
   functions = {
     printHello: () => {
@@ -20,7 +20,7 @@ class ${appname.replaceAll(" ", "")}App {
     MAIN: "${defaultWindowName}",
   }
   contents = {
-    MAIN: \`<h1>Hello!</h1><button onclick="ClList[_${appname.replaceAll(" ", "")}Public.key].functions.printHello()">Hello</button>\`
+    MAIN: \`<h1>Hello!</h1><button onclick="ClList[_${appname.replaceAll(" ", "").replaceAll("-", "_")}Public.key].functions.printHello()">Hello</button>\`
   }
 
   mainOpen() {
@@ -28,7 +28,7 @@ class ${appname.replaceAll(" ", "")}App {
   }
 
   constructor(key) {
-    _${appname.replaceAll(" ", "")}Public.key = key;
+    _${appname.replaceAll(" ", "").replaceAll("-", "_")}Public.key = key;
     this.app = new App({
       name: "${appname}",
       hidden: ${hidden == "Ano" ? "true" : "false"},
@@ -68,6 +68,6 @@ class ${appname.replaceAll(" ", "")}App {
   }
 }
 
-ClassConstructor.add(${appname.replaceAll(" ", "")}App);
+ClassConstructor.add(${appname.replaceAll(" ", "").replaceAll("-", "_")}App);
 `.trim();
 }
