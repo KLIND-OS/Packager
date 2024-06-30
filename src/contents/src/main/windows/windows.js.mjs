@@ -1,5 +1,8 @@
 export default function getWindows({ defaultWindowName }) {
   return `
+import mainClose from "./MAIN/close";
+import mainOpen from "./MAIN/open";
+
 export const windowNames = {
   MAIN: "${defaultWindowName}",
   SECOND: "${defaultWindowName}-2",
@@ -9,10 +12,10 @@ export function addWindows() {
   this.app.createWindow({
     name: this.windowNames.MAIN,
     buttons: {
-      close: this.close.MAIN.bind(this),
+      close: mainClose.bind(this),
       mini: () => {},
     },
-    onStart: this.open.MAIN.bind(this),
+    onStart: mainOpen.bind(this),
     defaultWindow: true,
 
     // We select what HTML should be used for this window. KLIND OS uses

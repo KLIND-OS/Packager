@@ -3,8 +3,6 @@ export default function getApp({ appname, hidden }) {
 import styles from "./styles/main";
 import { windowNames, addWindows } from "./windows/windows";
 import press from "./functions/press";
-import mainClose from "./windows/MAIN/close";
-import mainOpen from "./windows/MAIN/open";
 
 // Note (remove after development):
 //
@@ -45,16 +43,6 @@ ClassConstructor.add(
         windows.open(this.app.windowParser.parseName(this.windowNames.SECOND));
       },
       press,
-    };
-
-    // Here we save all functions that are executed when user opens specific window.
-    open = {
-      MAIN: mainOpen,
-    };
-
-    // Here we save all functions that are executed when user closes specific window.
-    close = {
-      MAIN: mainClose,
     };
 
     // Here the app is created.

@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.mjs",
   "scripts": {
-    "build": "ncc build src/index.mjs -o dist",
+    "build": "ncc build src/index.mjs -o dist && terser dist/index.mjs -o packager.mjs --compress --mangle && rm -r dist/* && mv packager.mjs dist",
     "dev": "node src/index.mjs"
   },
   "repository": {
