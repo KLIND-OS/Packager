@@ -5,6 +5,8 @@ import fetch from "node-fetch";
 import fs from "fs";
 import path from "path";
 import process from "process";
+import compileMain from "./webpack/main.mjs";
+import compileInstall from "./webpack/install.mjs";
 const fsPromises = fs.promises;
 
 export default async function compile(callback = () => {}) {
@@ -48,8 +50,6 @@ export default async function compile(callback = () => {}) {
   const zip = new JSZip();
 
   const namePath = path.join(process.cwd(), "name.txt");
-  const installPath = path.join(process.cwd(), "install.js");
-  const scriptPath = path.join(process.cwd(), "app.js");
   const imagePath = path.join(process.cwd(), "assets", "logo.png");
   const appdataPath = path.join(process.cwd(), "assets", "custom");
 
@@ -62,17 +62,19 @@ export default async function compile(callback = () => {}) {
     process.exit(1);
   }
 
-  if (fs.existsSync(installPath)) {
-    zip.file("install.js", fs.readFileSync(installPath));
+  const install = await compileInstall();
+  if (install) {
+    zip.file("install.js", install);
   } else {
-    Console.error("Vyžadovaný soubor nebyl nalezen: install.js");
+    Console.error("Nastala chyba při kompilaci INSTALL.");
     process.exit(1);
   }
 
-  if (fs.existsSync(scriptPath)) {
-    zip.file("script.js", fs.readFileSync(scriptPath));
+  const script = await compileMain();
+  if (script) {
+    zip.file("script.js", script);
   } else {
-    Console.error("Vyžadovaný soubor nebyl nalezen: app.js");
+    Console.error("Nastala chyba při kompilaci MAIN.");
     process.exit(1);
   }
 
@@ -100,8 +102,6 @@ export default async function compile(callback = () => {}) {
     console.error("Vyžadovaná složka nebyla nalezena: appdata");
     process.exit(1);
   }
-
-  await fsPromises.mkdir(path.join(process.cwd(), "dist"));
 
   zip
     .generateNodeStream({ type: "nodebuffer", streamFiles: true })

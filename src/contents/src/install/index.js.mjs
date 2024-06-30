@@ -4,8 +4,6 @@ export default function getContentInstall({
   appname,
 }) {
   return `
-"use async";
-
 (async () => {
   const execAsync = LowLevelApi.filesystem.promisify(
     LowLevelApi.child_process.exec,
