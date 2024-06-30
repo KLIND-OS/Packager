@@ -12,6 +12,7 @@ export default async function select() {
       name: "hidden",
       message: "Má být aplikace schovaná ze startu?",
       choices: ["Ano", "Ne"],
+      default: "Ne",
     },
     {
       type: "input",

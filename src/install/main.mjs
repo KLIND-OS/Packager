@@ -1,13 +1,16 @@
 import Console from "../scripts/cli/console.mjs";
 import timeout from "../scripts/timeout.mjs";
 import select from "./select.mjs";
+import { promises } from "fs";
+import path from "path";
+import process from "process";
+import fetch from "node-fetch";
+const fs = promises;
+
 import getMainContent from "../contents/app.mjs";
 import getContentInstall from "../contents/install.mjs";
-import { promises } from "fs";
-const fs = promises;
-import path from "path";
-import process, { cwd } from "process";
-import fetch from "node-fetch";
+import getMainHtmlContent from "../contents/assets/custom/pages/main.html.mjs";
+import getSecondHtmlContent from "../contents/assets/custom/pages/second.html.mjs";
 
 export default async function install() {
   Console.info("Projekt nebyl nalezen! Vytvářím nový.");
@@ -19,8 +22,6 @@ export default async function install() {
 
   Console.clear();
   Console.info("Začínám vytváření projektu");
-
-  await timeout(700);
 
   await Promise.all([
     fs.mkdir(path.join(process.cwd(), "assets")),
@@ -38,13 +39,33 @@ export default async function install() {
     }),
   ]);
 
-  await fs.mkdir(path.join(process.cwd(), "assets", "custom"))
+  await fs.mkdir(path.join(process.cwd(), "assets", "custom"));
+  await fs.mkdir(path.join(process.cwd(), "assets", "custom", "pages"));
+
+  await Promise.all([
+    fs.writeFile(
+      path.join(process.cwd(), "assets", "custom", "pages", "main.html"),
+      getMainHtmlContent(),
+      {
+        encoding: "utf8",
+      },
+    ),
+    fs.writeFile(
+      path.join(process.cwd(), "assets", "custom", "pages", "second.html"),
+      getSecondHtmlContent(),
+      {
+        encoding: "utf8",
+      },
+    ),
+  ]);
 
   const response = await fetch("https://klindos.jzitnik.dev/compiler/icon.png");
   const buffer = await response.arrayBuffer();
   const filePath = path.join(process.cwd(), "assets", "logo.png");
 
   await fs.writeFile(filePath, Buffer.from(buffer));
+
+  await timeout(200);
 
   Console.success(
     "Projekt vytvořen! Spusťte tento script znovu pro více info.",
