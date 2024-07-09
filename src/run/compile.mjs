@@ -21,7 +21,7 @@ export default async function compile(callback = () => {}) {
 
   if (answer == "Nejnovější verze") {
     const request = await fetch(
-      "https://backend.jzitnik.dev/klindos/latestVersion",
+      "https://klindos.jzitnik.dev/api/latestversion",
     );
     const json = await request.json();
     var version = json.version;
