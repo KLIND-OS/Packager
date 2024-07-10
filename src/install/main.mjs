@@ -7,15 +7,14 @@ import process from "process";
 import fetch from "node-fetch";
 const fs = promises;
 
-import getMainIndexContent from "../contents/src/main/index.js.mjs";
-import getInstallIndexContent from "../contents/src/install/index.js.mjs";
+import getMainIndexContent from "../contents/src/index.js.mjs";
 import getMainHtmlContent from "../contents/assets/custom/pages/main.html.mjs";
 import getSecondHtmlContent from "../contents/assets/custom/pages/second.html.mjs";
-import getPressContent from "../contents/src/main/functions/press.js.mjs";
-import getStylesContent from "../contents/src/main/styles/main.js.mjs";
-import getWindows from "../contents/src/main/windows/windows.js.mjs";
-import getMainOpen from "../contents/src/main/windows/MAIN/open.js.mjs";
-import getMainClose from "../contents/src/main/windows/MAIN/close.js.mjs";
+import getPressContent from "../contents/src/functions/press.js.mjs";
+import getStylesContent from "../contents/src/styles/main.js.mjs";
+import getWindows from "../contents/src/windows/windows.js.mjs";
+import getMainOpen from "../contents/src/windows/MAIN/open.js.mjs";
+import getMainClose from "../contents/src/windows/MAIN/close.js.mjs";
 
 export default async function install() {
   Console.info("Projekt nebyl nalezen! Vytvářím nový.");
@@ -39,11 +38,10 @@ export default async function install() {
   await fs.mkdir(path.join(process.cwd(), "assets", "custom", "pages"));
   await fs.mkdir(path.join(process.cwd(), "src"));
   await fs.mkdir(path.join(process.cwd(), "src", "main"));
-  await fs.mkdir(path.join(process.cwd(), "src", "install"));
-  await fs.mkdir(path.join(process.cwd(), "src", "main", "functions"));
-  await fs.mkdir(path.join(process.cwd(), "src", "main", "styles"));
-  await fs.mkdir(path.join(process.cwd(), "src", "main", "windows"));
-  await fs.mkdir(path.join(process.cwd(), "src", "main", "windows", "MAIN"));
+  await fs.mkdir(path.join(process.cwd(), "src", "functions"));
+  await fs.mkdir(path.join(process.cwd(), "src", "styles"));
+  await fs.mkdir(path.join(process.cwd(), "src", "windows"));
+  await fs.mkdir(path.join(process.cwd(), "src", "windows", "MAIN"));
 
   await Promise.all([
     fs.writeFile(
@@ -56,13 +54,6 @@ export default async function install() {
     fs.writeFile(
       path.join(process.cwd(), "assets", "custom", "pages", "second.html"),
       getSecondHtmlContent(),
-      {
-        encoding: "utf8",
-      },
-    ),
-    fs.writeFile(
-      path.join(process.cwd(), "src", "install", "index.js"),
-      getInstallIndexContent(answers),
       {
         encoding: "utf8",
       },
@@ -82,29 +73,43 @@ export default async function install() {
       },
     ),
     fs.writeFile(
-      path.join(process.cwd(), "src", "main", "styles", "main.js"),
+      path.join(process.cwd(), "src", "styles", "main.js"),
       getStylesContent(),
       {
         encoding: "utf8",
       },
     ),
     fs.writeFile(
-      path.join(process.cwd(), "src", "main", "windows", "windows.js"),
+      path.join(process.cwd(), "src", "windows", "windows.js"),
       getWindows(answers),
       {
         encoding: "utf8",
       },
     ),
     fs.writeFile(
-      path.join(process.cwd(), "src", "main", "windows", "MAIN", "open.js"),
+      path.join(process.cwd(), "src", "windows", "MAIN", "open.js"),
       getMainOpen(),
       {
         encoding: "utf8",
       },
     ),
     fs.writeFile(
-      path.join(process.cwd(), "src", "main", "windows", "MAIN", "close.js"),
+      path.join(process.cwd(), "src", "windows", "MAIN", "close.js"),
       getMainClose(),
+      {
+        encoding: "utf8",
+      },
+    ),
+    fs.writeFile(
+      path.join(process.cwd(), "node_packages.json"),
+      "[]",
+      {
+        encoding: "utf8",
+      },
+    ),
+    fs.writeFile(
+      path.join(process.cwd(), "linux_programs.json"),
+      "[]",
       {
         encoding: "utf8",
       },

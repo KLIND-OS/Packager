@@ -6,7 +6,6 @@ import fs from "fs";
 import path from "path";
 import process from "process";
 import compileMain from "./webpack/main.mjs";
-import compileInstall from "./webpack/install.mjs";
 const fsPromises = fs.promises;
 
 export default async function compile(callback = () => {}) {
@@ -52,6 +51,8 @@ export default async function compile(callback = () => {}) {
   const namePath = path.join(process.cwd(), "name.txt");
   const imagePath = path.join(process.cwd(), "assets", "logo.png");
   const appdataPath = path.join(process.cwd(), "assets", "custom");
+  const nodePackagesPath = path.join(process.cwd(), "node_packages.json");
+  const linuxProgramsPath = path.join(process.cwd(), "linux_programs.json");
 
   zip.file("version.txt", version);
 
@@ -59,14 +60,6 @@ export default async function compile(callback = () => {}) {
     zip.file("name.txt", fs.readFileSync(namePath));
   } else {
     Console.error("Vyžadovaný soubor nebyl nalezen: name.txt");
-    process.exit(1);
-  }
-
-  const install = await compileInstall();
-  if (install) {
-    zip.file("install.js", install);
-  } else {
-    Console.error("Nastala chyba při kompilaci INSTALL.");
     process.exit(1);
   }
 
@@ -102,6 +95,19 @@ export default async function compile(callback = () => {}) {
     console.error("Vyžadovaná složka nebyla nalezena: appdata");
     process.exit(1);
   }
+  if (fs.existsSync(nodePackagesPath)) {
+    zip.file("node_packages.json", fs.readFileSync(nodePackagesPath));
+  } else {
+    Console.error("Vyžadovaný soubor nebyl nalezen: node_packages.json");
+    process.exit(1);
+  }
+  if (fs.existsSync(linuxProgramsPath)) {
+    zip.file("linux_programs.json", fs.readFileSync(linuxProgramsPath));
+  } else {
+    Console.error("Vyžadovaný soubor nebyl nalezen: node_packages.json");
+    process.exit(1);
+  }
+
 
   zip
     .generateNodeStream({ type: "nodebuffer", streamFiles: true })
