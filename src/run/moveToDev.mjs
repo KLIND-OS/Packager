@@ -5,7 +5,7 @@ import process from "process";
 import Console from "../scripts/cli/console.mjs";
 
 export default async function moveToDev() {
-  Console.info("Přesouvám aplikaci do KLIND OS Developers.");
+  Console.info("Moving app to KLIND OS Developers.");
   const usrfiles = path.join(os.homedir(), "usrfiles");
 
   if (!fs.existsSync(usrfiles)) {
@@ -21,5 +21,5 @@ export default async function moveToDev() {
     recursive: true,
   });
 
-  Console.success("Aplikace byla přesunuta!");
+  Console.success("App was moved!");
 }

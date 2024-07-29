@@ -4,7 +4,7 @@ import fs from "fs";
 import install from "./install/main.mjs";
 import path from "path";
 import process from "process";
-import main from "./run/main.mjs"
+import main from "./run/main.mjs";
 
 Console.clear();
 printlogo();

@@ -1,4 +1,5 @@
-import { webpack } from "webpack";
+import pkg from "webpack";
+const { webpack } = pkg;
 import path from "path";
 import Console from "../../scripts/cli/console.mjs";
 import fs from "fs";
@@ -48,7 +49,7 @@ export default async function compileMain() {
       }),
     );
 
-    Console.success("MAIN byl vykompilován.");
+    Console.success("MAIN was compiled.");
     console.log("----------Webpack----------\n");
     const bundle = await fs.promises.readFile(
       path.resolve("dist", "main_bundle.js"),
