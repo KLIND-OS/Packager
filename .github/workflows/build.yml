@@ -27,5 +27,5 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: packager
+        name: KLIND OS Packager
         path: dist/packager.mjs
