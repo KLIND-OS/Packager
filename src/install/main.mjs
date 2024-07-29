@@ -37,7 +37,6 @@ export default async function install() {
   await fs.mkdir(path.join(process.cwd(), "assets", "custom"));
   await fs.mkdir(path.join(process.cwd(), "assets", "custom", "pages"));
   await fs.mkdir(path.join(process.cwd(), "src"));
-  await fs.mkdir(path.join(process.cwd(), "src", "main"));
   await fs.mkdir(path.join(process.cwd(), "src", "functions"));
   await fs.mkdir(path.join(process.cwd(), "src", "styles"));
   await fs.mkdir(path.join(process.cwd(), "src", "windows"));
@@ -59,14 +58,14 @@ export default async function install() {
       },
     ),
     fs.writeFile(
-      path.join(process.cwd(), "src", "main", "index.js"),
+      path.join(process.cwd(), "src", "index.js"),
       getMainIndexContent(answers),
       {
         encoding: "utf8",
       },
     ),
     fs.writeFile(
-      path.join(process.cwd(), "src", "main", "functions", "press.js"),
+      path.join(process.cwd(), "src", "functions", "press.js"),
       getPressContent(),
       {
         encoding: "utf8",

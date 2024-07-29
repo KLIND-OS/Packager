@@ -8,7 +8,7 @@ export default async function compileMain() {
   console.log("\n----------Webpack----------");
 
   const config = {
-    entry: path.resolve("src", "main", "index.js"),
+    entry: path.resolve("src", "index.js"),
     output: {
       filename: "main_bundle.js",
       path: path.resolve("dist"),
