@@ -1,12 +1,20 @@
 # KLIND OS Packager
 
-Toto je program pro kompilaci externích KLIND OS Aplikací.
+This is program for compiling external apps for KLIND OS.
 
 ## Download
 
-Postavený script si můžete stáhnout na oficiální KLIND OS stránce.
+Builded script can be downloaded in a official [KLIND OS Website](https://klindos.jzitnik.dev/packager) or in a GitHub release.
 
-## Build
+## Docs for creating apps
+
+If you want to learn how to create apps for KLIND OS go to [KLIND OS Documentation](https://docs.klindos.jzitnik.dev).
+
+## Build the packager for yourself
+
+You can build KLIND OS Packager from source easily.
+
+Run this:
 
 ```
 npm i

@@ -1,7 +1,7 @@
 {
   "name": "klind-os-packager",
   "version": "1.0.0",
-  "description": "",
+  "description": "Progrma for compiling external apps for KLIND OS.",
   "main": "src/index.mjs",
   "scripts": {
     "build": "ncc build src/index.mjs -o dist && terser dist/index.mjs -o packager.mjs --compress --mangle && rm -r dist/* && mv packager.mjs dist",
