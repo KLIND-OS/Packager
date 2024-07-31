@@ -5,31 +5,31 @@ export default async function select() {
     {
       type: "input",
       name: "appname",
-      message: "Zadejte název aplikace:",
+      message: "Select app name:",
     },
     {
       type: "list",
       name: "hidden",
-      message: "Má být aplikace schovaná ze startu?",
-      choices: ["Ano", "Ne"],
+      message: "Should this app be hidden in start?",
+      choices: ["Yes", "No"],
       default: "Ne",
     },
     {
       type: "input",
       name: "defaultWindowName",
-      message: "Zadejte název výchozího okna:",
+      message: "Enter name of the default window:",
     },
     {
       type: "input",
       name: "nodejsLibraries",
       message:
-        "Zadejte NodeJS knihovny které chcete importovat: (nechte prázdné pokud nechcete NodeJS knihovny)",
+        "Enter node programs that your app will need: (seperate by space)",
     },
     {
       type: "input",
       name: "linuxPrograms",
       message:
-        "Zadejte linuxové programy které chcete importovat: (nechte prázdné pokud nechcete linuxové programy)",
+        "Enter linux programs that your app will need: (seperate by space)",
     },
   ]);
   return answers;

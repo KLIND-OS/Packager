@@ -7,8 +7,8 @@ export default async function selectRun() {
       name: "answer",
       message: "Vyberte možnost:",
       choices: [
-        "Vykompilovat aplikaci a přesunout do KLIND OS Development",
-        "Vykompilovat aplikaci do produkce",
+        "Compile the app and move it to KLIND OS Developers",
+        "Compile the app to production",
       ],
     },
   ]);

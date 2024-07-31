@@ -55,7 +55,7 @@ ClassConstructor.add(
       // Otherwise the assets will not be loaded properly.
       this.app = new App({
         name: "${appname}",
-        hidden: ${hidden == "Ano" ? "true" : "false"},
+        hidden: ${hidden == "Yes" ? "true" : "false"},
       });
 
       // Create windows.
